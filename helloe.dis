@@ -1,0 +1,205 @@
+Dump of assembler code for function readString:
+/* Save the frame pointer onto the stack and set frame pointer equal to stack pointer */
+   0x00000000004006fe <+0>:	push   %rbp 
+   0x00000000004006ff <+1>:	mov    %rsp,%rbp
+/* Save the contents of r13,r12 and rbx so that old values of the caller can be retrieved; The registers can be use by the callee function */ 
+   0x0000000000400702 <+4>:	push   %r13
+   0x0000000000400704 <+6>:	push   %r12
+   0x0000000000400706 <+8>:	push   %rbx
+   0x0000000000400707 <+9>:	sub    $0x18,%rsp			/* Allocating 36 bytes memory to buffer and other local variables */
+   0x000000000040070b <+13>:	mov    %rdi,%r13
+   0x000000000040070e <+16>:	mov    %rdx,-0x28(%rbp)
+   0x0000000000400712 <+20>:	lea    0x24(%rsi),%eax			/* Starting address of the 36 bytes memory is stored in register eax */
+   0x0000000000400715 <+23>:	cltq   
+   0x0000000000400717 <+25>:	add    $0x1e,%rax
+   0x000000000040071b <+29>:	and    $0xfffffffffffffff0,%rax
+   0x000000000040071f <+33>:	sub    %rax,%rsp
+   0x0000000000400722 <+36>:	lea    0xf(%rsp),%r12
+   0x0000000000400727 <+41>:	and    $0xfffffffffffffff0,%r12
+   0x000000000040072b <+45>:	mov    $0x0,%ebx			/* set i = 0 */
+/* This is the start of first for loop */
+   0x0000000000400730 <+50>:	mov    0x200669(%rip),%rdi        # 0x600da0 <stdin@@GLIBC_2.2.5>
+   0x0000000000400737 <+57>:	callq  0x4005e0 <fgetc@plt>	    	/* The getc function is being called */
+   0x000000000040073c <+62>:	cmp    $0xffffffffffffffff,%eax		/* if(c==EOF) */ 
+   0x000000000040073f <+65>:	je     0x400752 <readString+84>
+   0x0000000000400741 <+67>:	cmp    $0xa,%eax			/* if(c=='\n') */
+   0x0000000000400744 <+70>:	je     0x400752 <readString+84>
+   0x0000000000400746 <+72>:	movslq %ebx,%rdx
+   0x0000000000400749 <+75>:	mov    %al,(%r12,%rdx,1)
+   0x000000000040074d <+79>:	add    $0x1,%ebx
+   0x0000000000400750 <+82>:	jmp    0x400730 <readString+50>
+/* First for loop ends */
+   0x0000000000400752 <+84>:	movslq %ebx,%rbx
+   0x0000000000400755 <+87>:	movb   $0x0,(%r12,%rbx,1)		/* buffer[i++] = 0 */
+   0x000000000040075a <+92>:	mov    %r13,%rax
+   0x000000000040075d <+95>:	lea    0x24(%r12),%rcx
+/* This is the start of second for loop */
+   0x0000000000400762 <+100>:	movzbl (%r12),%edx
+   0x0000000000400767 <+105>:	mov    %dl,(%rax)
+   0x0000000000400769 <+107>:	add    $0x1,%r12
+   0x000000000040076d <+111>:	add    $0x1,%rax
+   0x0000000000400771 <+115>:	cmp    %rcx,%r12
+   0x0000000000400774 <+118>:	jne    0x400762 <readString+100>
+/* Second for loop ends */
+   0x0000000000400776 <+120>:	mov    %r13,%rdi			/* First argument for f(s) */
+   0x0000000000400779 <+123>:	mov    $0x0,%eax			/* result register of f(s) */
+   0x000000000040077e <+128>:	callq  *-0x28(%rbp)			/* Call to the function f(s) -> checkName */
+   0x0000000000400781 <+131>:	lea    -0x18(%rbp),%rsp
+/* Restore the saved values to registers r13,r12 and rbx */
+   0x0000000000400785 <+135>:	pop    %rbx		
+   0x0000000000400786 <+136>:	pop    %r12
+   0x0000000000400788 <+138>:	pop    %r13
+   0x000000000040078a <+140>:	leaveq 
+   0x000000000040078b <+141>:	retq   
+End of assembler dump.
+
+
+/* Data Section Layout */
+
+(gdb) maintenance info sections
+0x00600eb0->0x00600eb8 at 0x00000eb0: .data ALLOC LOAD DATA HAS_CONTENTS /*Starting address of data section*/
+
+(gdb) x/1000s 0x00600d80
+
+0x600eb0 <data_start>:   ""
+0x600eb1 <data_start+1>:    ""
+0x600eb2 <data_start+2>:    ""
+0x600eb3 <data_start+3>:    ""
+0x600eb4 <grade>:  "F"
+0x600eb6:    ""
+0x600eb7:    ""
+
+
+/* End of Data Section */
+
+/* BSS Section (BSS is the uninititalized part of the data segment)*/
+
+(gdb) maintenance info sections
+0x00600ec0->0x00600f08 at 0x00000eb8: .bss ALLOC /*Get starting address of BSS*/
+
+(gdb) x/1000s 0x00600da0
+0x600ec0 <stdin@@GLIBC_2.2.5>:    "\300\346\370\263\071"
+0x600ec6 <stdin@@GLIBC_2.2.5+6>:  ""
+0x600ec7 <stdin@@GLIBC_2.2.5+7>:  ""
+0x600ec8 <completed.6349>:  ""
+0x600ec9:    ""
+0x600eca:    ""
+0x600ecb:    ""
+0x600ecc:    ""
+0x600ecd:    ""
+0x600ece:    ""
+0x600ecf:    ""
+0x600ed0 <dtor_idx.6351>:   ""
+0x600ed1 <dtor_idx.6351+1>:    ""
+0x600ed2 <dtor_idx.6351+2>:    ""
+0x600ed3 <dtor_idx.6351+3>:    ""
+0x600ed4 <dtor_idx.6351+4>:    ""
+0x600ed5 <dtor_idx.6351+5>:    ""
+0x600ed6 <dtor_idx.6351+6>:    ""
+0x600ed7 <dtor_idx.6351+7>:    ""
+0x600ed8:    ""
+0x600ed9:    ""
+0x600eda:    ""
+0x600edb:    ""
+0x600edc:    ""
+0x600edd:    ""
+0x600ede:    ""
+0x600edf:    ""
+0x600ee0 <Name>:   "Sanskruti"
+0x600eea <Name+10>:   "\370\263\071"
+0x600eee <Name+14>:   ""
+0x600eef <Name+15>:   ""
+0x600ef0 <Name+16>:   "\023"
+0x600ef2 <Name+18>:   ""
+0x600ef3 <Name+19>:   ""
+0x600ef4 <Name+20>:   ""
+0x600ef5 <Name+21>:   ""
+0x600ef6 <Name+22>:   ""
+0x600ef7 <Name+23>:   ""
+0x600ef8 <Name+24>:   ""
+0x600ef9 <Name+25>:   "\300\377\367\377\177"
+0x600eff <Name+31>:   ""
+0x600f00 <Name+32>:   "p\341\377\377"
+0x600f05:    ""
+0x600f06:    ""
+0x600f07:    ""
+0x600f08:    ""
+
+
+/* End of BSS Section */
+
+/* Stack frame of helloe */
+
+(gdb) x/128s 0x7fffffffdfd0
+
+0x7fffffffdfd0:    "Sanskruti"         <---------- Stack Pointer
+0x7fffffffdfda:    "\370\263\071"
+0x7fffffffdfde:    ""
+0x7fffffffdfdf:    ""
+0x7fffffffdfe0:    "\023"
+0x7fffffffdfe2:    ""
+0x7fffffffdfe3:    ""
+0x7fffffffdfe4:    ""
+0x7fffffffdfe5:    ""
+0x7fffffffdfe6:    ""
+0x7fffffffdfe7:    ""
+0x7fffffffdfe8:    ""
+0x7fffffffdfe9:    "\300\377\367\377\177"
+0x7fffffffdfef:    ""
+0x7fffffffdff0:    "p\341\377\377\377\177"
+0x7fffffffdff7:    ""
+0x7fffffffdff8:    "\205\060ǳ9"
+0x7fffffffdffe:    ""
+0x7fffffffdfff:    ""
+0x7fffffffe000:    ""
+0x7fffffffe001:    ""
+0x7fffffffe002:    ""
+0x7fffffffe003:    ""
+0x7fffffffe004:    ""
+0x7fffffffe005:    ""
+0x7fffffffe006:    ""
+0x7fffffffe007:    ""
+0x7fffffffe008:    "\240\347\370\263\071"
+0x7fffffffe00e:    ""
+0x7fffffffe00f:    ""
+0x7fffffffe010:    "\n"
+0x7fffffffe012:    ""
+0x7fffffffe013:    ""
+0x7fffffffe014:    ""
+0x7fffffffe015:    ""
+0x7fffffffe016:    ""
+0x7fffffffe017:    ""
+0x7fffffffe018:    "\204\a@"      <------ CheckName (rsp+0x48)
+0x7fffffffe01c:    ""
+0x7fffffffe01d:    ""
+0x7fffffffe01e:    ""
+0x7fffffffe01f:    ""
+0x7fffffffe020:    "p\341\377\377"
+0x7fffffffe025:    ""
+0x7fffffffe026:    ""
+0x7fffffffe027:    ""
+0x7fffffffe028:    "\340\016`"
+0x7fffffffe02c:    ""
+0x7fffffffe02d:    ""
+0x7fffffffe02e:    ""
+0x7fffffffe02f:    ""
+0x7fffffffe030:    "\240\347\370\263\071"
+0x7fffffffe036:    ""
+0x7fffffffe037:    ""
+0x7fffffffe038:    "#"
+0x7fffffffe03a:    ""
+0x7fffffffe03b:    ""
+0x7fffffffe03c:    ""
+0x7fffffffe03d:    ""
+0x7fffffffe03e:    ""
+0x7fffffffe03f:    ""
+0x7fffffffe040:    "\320\337\377\377\377\177"  <----------- RBP (rsp+0x70)
+0x7fffffffe01c:    ""
+0x7fffffffe01d:    ""
+0x7fffffffe01e:    ""
+0x7fffffffe01f:    ""
+0x7fffffffe020:    "p\341\377\377" <----------  return address 
+
+/* End of stack frame for readString */
+
+
